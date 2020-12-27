@@ -38,7 +38,7 @@ def parse_homework_status(homework):
 def get_homework_statuses(current_timestamp):
     if current_timestamp is None:
         current_timestamp = int(time.time())
-    current_timestamp = current_timestamp - 300000
+    # current_timestamp = current_timestamp - 300000
     params = {
         'from_date': current_timestamp
     }
@@ -62,10 +62,11 @@ def main():
     bot_client = telegram.Bot(token=TELEGRAM_TOKEN)
     current_timestamp = int(time.time())  # начальное значение timestamp
     # logger.debug('I stared to work')
+    send_message('I started to work', bot_client)
     while True:
         try:
             new_homework = get_homework_statuses(current_timestamp)
-
+            send_message('Bot try to check homework status', bot_client)
             if new_homework.get('homeworks'):
                 send_message(parse_homework_status(
                     new_homework.get('homeworks')[0]), bot_client)
